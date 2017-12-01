@@ -14,9 +14,38 @@
 
 @implementation AppDelegate
 
+- (void)selectSort:(NSMutableArray *)array
+{
+    for (NSInteger i = 0; i < array.count; i++)
+    {
+        NSNumber * firstNum = array[i];
+        NSInteger minIndex = i;
+        NSNumber * minNum = firstNum;
+        for (NSInteger j = i;j < array.count;j++)
+        {
+            NSNumber * secondNum = array[j];
+            minIndex = [minNum integerValue] > [secondNum integerValue] ? j : minIndex;
+            minNum = [minNum integerValue] > [secondNum integerValue] ? secondNum : minNum;
+        }
+        if (i != minIndex)
+        {
+            [array exchangeObjectAtIndex:i withObjectAtIndex:minIndex];
+        }
+    }
+    
+    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        NSLog(@"%ld",[obj integerValue]);
+    }];
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    NSMutableArray * array = [@[@(49),@(38),@(65),@(97),@(76),@(13),@(27),@(28),@(15),@(49),@(94),@158,@158,@14,@1,@85,@3,@77,@63,@7,@23] mutableCopy];
+    
+    [self selectSort:array];
+    
     return YES;
 }
 
